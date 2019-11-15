@@ -10,7 +10,7 @@ pipeline {
                 stage('Build Backend'){
                     steps {
                         dir('backend'){
-                            sh 'mvn clean install spotbugs:spotbugs checkstyle:checkstyle deploy'
+                            bat 'mvn clean install spotbugs:spotbugs checkstyle:checkstyle deploy'
                         }
                     }
                     post {
@@ -25,9 +25,9 @@ pipeline {
                 stage('Build Frontend'){
                     steps {
                         dir('frontend'){
-                            sh 'npm install --save'
-                            sh 'npm install jest-cli --save'
-                            sh 'mvn clean install'
+                            bat 'npm install --save'
+                            bat 'npm install jest-cli --save'
+                            bat 'mvn clean install'
                         }
                     }
                 }
@@ -37,7 +37,7 @@ pipeline {
             steps {
                 dir('deployment'){
                     echo 'Deploying to test'
-                    sh 'ansible-playbook -i dev-servers site.yml'
+                    bat 'ansible-playbook -i dev-servers site.yml'
                 }
             }
         }
