@@ -10,17 +10,18 @@ pipeline {
                 stage('Build Backend'){
                     steps {
                         dir('backend'){
-                            bat 'mvn clean install spotbugs:spotbugs checkstyle:checkstyle deploy'
+                            bat 'mvn clean install'
+                            // bat 'mvn clean install spotbugs:spotbugs checkstyle:checkstyle deploy'
                         }
                     }
-                    post {
-                        always {
-                            junit 'backend/target/surefire-reports/*.xml'
-                            findbugs canComputeNew: false, defaultEncoding: '', excludePattern: '', healthy: '', includePattern: '', pattern: '**/spotbugsXml.xml', unHealthy: ''
-                            checkstyle canComputeNew: false, defaultEncoding: '', healthy: '', pattern: '**/checkstyle-result.xml', unHealthy: ''
-                            jacoco()
-                        }
-                    }
+                    // post {
+                    //     always {
+                    //         junit 'backend/target/surefire-reports/*.xml'
+                    //         findbugs canComputeNew: false, defaultEncoding: '', excludePattern: '', healthy: '', includePattern: '', pattern: '**/spotbugsXml.xml', unHealthy: ''
+                    //         checkstyle canComputeNew: false, defaultEncoding: '', healthy: '', pattern: '**/checkstyle-result.xml', unHealthy: ''
+                    //         jacoco()
+                    //     }
+                    // }
                 }
                 stage('Build Frontend'){
                     steps {
